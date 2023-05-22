@@ -1,0 +1,39 @@
+{
+  "name": "Messaging User Merger",
+  "author": {
+    "name": "Thomas Verschoren",
+    "email": "support@internalnote.com",
+    "url": "https://internalnote.com"
+  },
+  "defaultLocale": "en",
+  "private": true,
+  "location": {
+    "support": {
+      "ticket_sidebar": {
+        "url": "assets/iframe.html",
+        "flexible": true
+      }
+    }
+  },
+  "version": "1.0.0",
+  "frameworkVersion": "2.0",
+  "domainWhitelist": ["api.smooch.io"],
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "key_id",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "secret_key",
+      "type": "text",
+      "secure": true,
+      "required": true
+    }
+  ]
+}
