@@ -1,32 +1,18 @@
 var client = ZAFClient.init();
-var conversation_id,metadata,key,integration_id,phone;
+var requester,conversation_id,metadata,key,integration_id,phone;
 
 //Add Smooch App ID and API Token
-client.invoke('resize', { width: '100%', height: '100vh' });
+client.invoke('resize', { width: '100%', height: '200px' });
 
 $(document).ready(async function() {
+    $('#results').html('');
+    
     metadata = await client.metadata();
     key = btoa(metadata.settings.key_id + ":" + metadata.settings.secret_key);
-    console.log(metadata);
-    var requester = await client.get('ticket.requester').then(function(data) {
-        console.log(data);
-        return data['ticket.requester'];
-    });
-    console.log(requester);
-
-    //get identity
-    var user = await client.request({
-        url: '/api/v2/users/' + requester.id,
-        type: 'GET',
-        dataType: 'json'
-    }).then(function(data) {
-        return data;
-    });
-    phone = user.user.phone.replaceAll(' ', '');
-
-    $('#phone').html(phone);
-    $('#identities').html(JSON.stringify(requester.identities,null, 2));
-    $('#results').html('');
+    setButtons(metadata);
+    
+    requester = await getRequester();
+    phone = await getUser(requester);
 
     for (let index = 0; index < requester.identities.length; index++) {
         const identity = requester.identities[index];
@@ -39,82 +25,29 @@ $(document).ready(async function() {
                 </div>
             `);
             
-            var conversations = await client.request({
-                url: `https://api.smooch.io/v2/apps/${metadata.settings.app_id}/conversations?filter[userId]=${messaging_id}`,
-                type: 'GET',
-                dataType: 'json',
-                headers: {
-                    Authorization: "Basic " + key,
-                }
-            }).then(function(data) {
-                return data;
-            });
-            console.log(conversations);
-            conversation_id = conversations.conversations[0].id;
-            
-            $('#results').append(`
-                <div class="mt-4">
-                    <strong>Conversation ID</strong>
-                    <pre class="text-sm" id="conversation_id">${conversation_id}</pre>
-                </div>
-            `);
-            var messages = await client.request({
-                url: `https://api.smooch.io/v2/apps/${metadata.settings.app_id}/conversations/${conversation_id}/messages`,
-                type: 'GET',
-                dataType: 'json',
-                headers: {
-                    Authorization: "Basic " + key,
-                }
-            }).then(function(data) {
-                return data;
-            });
-            console.log(messages);
-            integration_id = messages.messages[0]['source']['integrationId'];
-            $('#results').append(`
-                <div class="mt-4">
-                    <strong>Integration ID</strong>
-                    <pre class="text-sm" id="integration_id">${integration_id}</pre>  
-                </div>
-            `);
- 
-
+            conversation_id = await getConversations(metadata.settings.app_id,messaging_id);
+            integration_id = await getMessages(metadata.settings.app_id,conversation_id);
         };
     }
 
     $('#send_message').click(async function(){
+        //get text in textfield
         var message = JSON.stringify({
             "content": {
               "type": "text",
-              "text": "Send via API!"
+              "text": $('#comment').val()
             },
             "author": {
-              "avatarUrl": "https://verschoren.work/apple-touch-icon.png",
-              "displayName": "SunCo API",
               "type": "business"
             },
             "source": {
               "type": "zd:agentWorkspace"
             }
         });
-
-        console.log(message);
-        var message_result = await client.request({
-            url: `https://api.smooch.io/v2/apps/${metadata.settings.app_id}/conversations/${conversation_id}/messages`,
-            type: 'POST',
-            dataType: 'json',
-            data: message,
-            headers: {
-                Authorization: "Basic " + key,
-                "Content-Type": "application/json"
-            }
-        }).then(function(data) {
-            console.log(data);
-            return data;
-        });
-        console.log(message_result);
+        var message_result = await sendMessage(`https://api.smooch.io/v2/apps/${metadata.settings.app_id}/conversations/${conversation_id}/messages`,message);
     });
-
-    $('#send_template').click(async function(){
+    
+    $('.send_template').click(async function(){
         var message = JSON.stringify({
             "destination": {
                 "integrationId": integration_id,
@@ -128,40 +61,106 @@ $(document).ready(async function() {
                 "type": "template",
                 "template": {
                     "namespace": "XXXXXXXX_XXXX_XXXX_XXXX_XXXXXXXXXXXX",
-                    "name": "24h_reminder",
+                    "name": $(this).html(),
                     "language": {
                         "policy": "deterministic",
                         "code": "en"
-                    },
-                    "components": [
-                        {
-                            "type": "body",
-                            "parameters": [
-                                {
-                                    "type": "text",
-                                    "text": "666"
-                                }
-                            ]
-                        }
-                    ]
+                    }
                 }
             }
         });
 
-        console.log(message);
-        var message_result = await client.request({
-            url: `https://api.smooch.io/v1.1/apps/${metadata.settings.app_id}/notifications`,
-            type: 'POST',
-            dataType: 'json',
-            data: message,
-            headers: {
-                Authorization: "Basic " + key,
-                "Content-Type": "application/json"
-            }
-        }).then(function(data) {
-            console.log(data);
-            return data;
-        });
-        console.log(message_result);
+        var message_result = await sendMessage(`https://api.smooch.io/v1.1/apps/${metadata.settings.app_id}/notifications`,message);
+    });
+
+    $('.toggle').click(function(){
+        $('.toggle').toggleClass('hidden');
+        $('#metadata').toggleClass('hidden');
+        client.invoke('resize', { width: '100%', height: '100vh' });
     });
 });
+
+function setButtons(metadata){
+    if (metadata.settings.template_1 != ''){
+        $('#send_template_1').html(metadata.settings.template_1);
+    } else {
+        $('#send_template_1').addClass('hidden');
+    }
+    if (metadata.settings.template_2 != ''){
+        $('#send_template_2').html(metadata.settings.template_2);
+    } else {
+        $('#send_template_2').addClass('hidden');
+    }
+}
+
+async function getRequester(){
+    return await client.get('ticket.requester').then(function(data) {
+        $('#identities').html(JSON.stringify(data['ticket.requester'].identities,null, 2));
+        return data['ticket.requester'];
+    });
+}
+
+async function getUser(requester){
+    return await client.request({
+        url: '/api/v2/users/' + requester.id,
+        type: 'GET',
+        dataType: 'json'
+    }).then(function(data) {
+        $('#phone').html(data.user.phone.replaceAll(' ', ''));
+        return data.user.phone.replaceAll(' ', '');
+    });
+}
+
+async function getConversations(app_id,messaging_id){
+    return await client.request({
+        url: `https://api.smooch.io/v2/apps/${app_id}/conversations?filter[userId]=${messaging_id}`,
+        type: 'GET',
+        dataType: 'json',
+        headers: {
+            Authorization: "Basic " + key,
+        }
+    }).then(function(data) {
+        $('#results').append(`
+            <div class="mt-4">
+                <strong>Conversation ID</strong>
+                <pre class="text-sm" id="conversation_id">${data.conversations[0].id}</pre>
+            </div>
+        `);
+        return data.conversations[0].id;
+    });
+}
+
+async function getMessages(app_id,conversation_id){
+    return await client.request({
+        url: `https://api.smooch.io/v2/apps/${app_id}/conversations/${conversation_id}/messages`,
+        type: 'GET',
+        dataType: 'json',
+        headers: {
+            Authorization: "Basic " + key,
+        }
+    }).then(function(data) {
+        $('#results').append(`
+            <div class="mt-4">
+                <strong>Integration ID</strong>
+                <pre class="text-sm" id="integration_id">${data.messages[0]['source']['integrationId']}</pre>  
+            </div>
+        `);
+        return data.messages[0]['source']['integrationId'];
+    });
+}
+
+async function sendMessage(url,message){
+    return await client.request({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        data: message,
+        headers: {
+            Authorization: "Basic " + key,
+            "Content-Type": "application/json"
+        }
+    }).then(function(data) {
+        client.invoke('notify', 'Message sent');
+        return data;
+    });
+}

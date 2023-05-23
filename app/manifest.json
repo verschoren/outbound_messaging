@@ -1,5 +1,5 @@
 {
-  "name": "Messaging User Merger",
+  "name": "Outbound Messaging",
   "author": {
     "name": "Thomas Verschoren",
     "email": "support@internalnote.com",
@@ -34,6 +34,16 @@
       "type": "text",
       "secure": true,
       "required": true
+    },
+    {
+      "name": "template_1",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "template_2",
+      "type": "text",
+      "required": false
     }
   ]
 }

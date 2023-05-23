@@ -7,22 +7,63 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 </head>
 <body>
-  <span class="isolate inline-flex rounded-md shadow-sm">
-    <button id="send_message" type="button" class="relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">Send Message</button>
-    <!-- <button type="button" class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"></button> -->
-    <button id="send_template" type="button" class="relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">Send Template</button>
-  </span>
-  <div class="mb-8">
-    <div class="mt-4">
-      <strong>Phone</strong>
-      <pre class="text-sm" id="phone"></pre>
-    </div>
-    <div class="mt-4">
-      <strong class="mt-2">Identities</strong>
-      <pre class="text-sm" id="identities"></pre>
-    </div>
-    <div id="results"></div>
+<div class="flex items-start space-x-4">
+  <div class="min-w-0 flex-1">
+    <form action="#" class="relative">
+      <div class="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
+        <label for="comment" class="sr-only">Add your comment</label>
+        <textarea rows="3" name="comment" id="comment" class="block w-full resize-none border-0 bg-transparent py-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Add your comment..."></textarea>
+        <div class="py-2" aria-hidden="true">
+          <div class="py-px">
+            <div class="h-9"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
+        <span class="isolate inline-flex rounded-md shadow-sm">
+          <button id="send_message" type="button" class="relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">Send Message</button>
+          <button id="send_template_2" type="button" class="send_template relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"></button>
+          <button id="send_template_1" type="button" class="send_template relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">Send Template</button>
+        </span>
+      </div>
+    </form>
   </div>
+</div>
+<div class="bg-white">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl divide-y divide-gray-900/10">
+      <dl class="mt-4 space-y-6 divide-y divide-gray-900/10">
+        <div>
+          <dt>
+            <button type="button" class="flex w-full items-start justify-between text-left text-gray-900" aria-controls="faq-0" aria-expanded="false">
+              <span class="text-base font-semibold leading-7">Metadata</span>
+              <span class="ml-6 flex h-7 items-center">
+                <svg class="toggle h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                </svg>
+                <svg class="toggle hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                </svg>
+              </span>
+            </button>
+          </dt>
+          <dd class="mt-2 pr-12 hidden" id="metadata">
+            <div class="mt-4">
+              <strong>Phone</strong>
+              <pre class="text-sm" id="phone"></pre>
+            </div>
+            <div class="mt-4">
+              <strong class="mt-2">Identities</strong>
+              <pre class="text-sm" id="identities"></pre>
+            </div>
+            <div id="results"></div>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</div>
   <script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>  
  <script src="main.js"></script>
 </body>
