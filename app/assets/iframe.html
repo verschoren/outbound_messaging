@@ -7,14 +7,22 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 </head>
 <body>
+  <span class="isolate inline-flex rounded-md shadow-sm">
+    <button id="send_message" type="button" class="relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">Send Message</button>
+    <!-- <button type="button" class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"></button> -->
+    <button id="send_template" type="button" class="relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">Send Template</button>
+  </span>
   <div class="mb-8">
-    <strong>Zendesk User</strong>
-    <pre id="phone"></pre>
-    <pre id="identities"></pre>
+    <div class="mt-4">
+      <strong>Phone</strong>
+      <pre class="text-sm" id="phone"></pre>
+    </div>
+    <div class="mt-4">
+      <strong class="mt-2">Identities</strong>
+      <pre class="text-sm" id="identities"></pre>
+    </div>
     <div id="results"></div>
   </div>
-  <div id="send_message">Send Message</div>
-  <div id="send_template">Send Template</div>
   <script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>  
  <script src="main.js"></script>
 </body>

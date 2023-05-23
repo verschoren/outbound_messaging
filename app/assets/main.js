@@ -33,8 +33,10 @@ $(document).ready(async function() {
         if (identity.type == "messaging"){
             var messaging_id = identity.value;
             $('#results').append(`
-                <strong>Messaging ID</strong>
-                <pre id="messaging_id">${messaging_id}</pre>
+                <div class="mt-4">
+                    <strong>Messaging ID</strong>
+                    <pre class="text-sm" id="messaging_id">${messaging_id}</pre>
+                </div>
             `);
             
             var conversations = await client.request({
@@ -51,8 +53,10 @@ $(document).ready(async function() {
             conversation_id = conversations.conversations[0].id;
             
             $('#results').append(`
-                <strong>Conversation ID</strong>
-                <pre id="conversation_id">${conversation_id}</pre>
+                <div class="mt-4">
+                    <strong>Conversation ID</strong>
+                    <pre class="text-sm" id="conversation_id">${conversation_id}</pre>
+                </div>
             `);
             var messages = await client.request({
                 url: `https://api.smooch.io/v2/apps/${metadata.settings.app_id}/conversations/${conversation_id}/messages`,
@@ -67,8 +71,10 @@ $(document).ready(async function() {
             console.log(messages);
             integration_id = messages.messages[0]['source']['integrationId'];
             $('#results').append(`
-                <strong>Integration ID</strong>
-                <pre id="integration_id">${integration_id}</pre>  
+                <div class="mt-4">
+                    <strong>Integration ID</strong>
+                    <pre class="text-sm" id="integration_id">${integration_id}</pre>  
+                </div>
             `);
  
 
