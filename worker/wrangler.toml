@@ -4,9 +4,8 @@ compatibility_date = "2023-01-01"
 account_id = "1e230692e8529617e34ee5ca900acae1"
 
 [vars]
-app_id = ''
-integration_id = ''
-key_id = ''
-
-# Add this secret variable manually
-# secret_key = ''
+app_id
+integration_id
+key_id
+secret_key
+# This secret_key one should be encrypted in the UI!

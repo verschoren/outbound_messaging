@@ -6,7 +6,7 @@ export default {
 
         const input = await request.json();
 
-        if (input.phone){
+        if (input.phone && input.template){
           var payload = {
             "destination": {
                 "integrationId": env.integration_id,
@@ -20,7 +20,7 @@ export default {
                 "type": "template",
                 "template": {
                     "namespace": "XXXXXXXX_XXXX_XXXX_XXXX_XXXXXXXXXXXX",
-                    "name": "subscribing",
+                    "name": input.template,
                     "language": {
                         "policy": "deterministic",
                         "code": "en"
@@ -45,9 +45,9 @@ export default {
           const response = await fetch(api_endpoint, init);
           const results = await response.json();
           console.log(results);
-          return new Response(JSON.stringify(result), init);
+          return new Response(JSON.stringify(results), init);
         } else {
-          return new Response("No Phone provided", {status:400});
+          return new Response("No Phone or Template provided", {status:400});
         }
       } else {
         return new Response ("No accessible path", {status:400});
