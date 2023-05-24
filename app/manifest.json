@@ -20,6 +20,11 @@
   "domainWhitelist": ["api.smooch.io"],
   "parameters": [
     {
+      "name": "integration_id",
+      "type": "text",
+      "required": true
+    },
+    {
       "name": "app_id",
       "type": "text",
       "required": true

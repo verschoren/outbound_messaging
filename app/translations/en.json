@@ -3,6 +3,25 @@
     "name": "Outbound Messaging",
     "short_description": "Play the famous zen tunes in your help desk.",
     "long_description": "Play the famous zen tunes in your help desk and \n listen to the beats it has to offer.",
-    "installation_instructions": "Simply click install."
+    "installation_instructions": "Simply click install.",
+    "parameters": {
+      "integration_id": { 
+        "label": "WhatsApp Integration ID"
+      },
+      "app_id":{ 
+        "label": "Sunshine Conversations App ID"
+      },
+      "key_id":{ 
+        "label": "Sunshine Conversations Key ID"
+      },
+      "secret_key":{ 
+        "label": "Sunshine Conversations Secret Key"
+      },
+      "template_1":{ 
+        "label": "WhatsApp Template Name"
+      },
+      "template_2":{ 
+        "label": "WhatsApp Template Name"
+      }
   }
 }

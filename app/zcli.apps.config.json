@@ -4,6 +4,7 @@
         "key_id":"app_64104641572cc60116e81e95",
         "secret_key":"ZZMEVcjueExWP7p_Q0DHLMZUlQXNbA1dZ6CCT2dBlY6qtlRVcEF5KPH0OzCJq1z8NWK7wF_zzH1W7sULmnB-cw",
         "template_1":"24h_reminder",
-        "template_2":"subscribing"
+        "template_2":"subscribing",
+        "integration_id": "646b411abc0c536ba1a98263"
     }
   }

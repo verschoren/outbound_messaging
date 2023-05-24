@@ -8,6 +8,14 @@ $(document).ready(async function() {
     $('#results').html('');
     
     metadata = await client.metadata();
+    integration_id = metadata.settings.integration_id?metadata.settings.integration_id:'';
+    $('#results').append(`
+        <div class="mt-4">
+            <strong>Integration ID</strong>
+            <pre class="text-sm" id="integration_id">${integration_id}</pre>  
+        </div>
+    `);
+
     key = btoa(metadata.settings.key_id + ":" + metadata.settings.secret_key);
     setButtons(metadata);
     
@@ -26,7 +34,6 @@ $(document).ready(async function() {
             `);
             
             conversation_id = await getConversations(metadata.settings.app_id,messaging_id);
-            integration_id = await getMessages(metadata.settings.app_id,conversation_id);
         };
     }
 
@@ -127,25 +134,6 @@ async function getConversations(app_id,messaging_id){
             </div>
         `);
         return data.conversations[0].id;
-    });
-}
-
-async function getMessages(app_id,conversation_id){
-    return await client.request({
-        url: `https://api.smooch.io/v2/apps/${app_id}/conversations/${conversation_id}/messages`,
-        type: 'GET',
-        dataType: 'json',
-        headers: {
-            Authorization: "Basic " + key,
-        }
-    }).then(function(data) {
-        $('#results').append(`
-            <div class="mt-4">
-                <strong>Integration ID</strong>
-                <pre class="text-sm" id="integration_id">${data.messages[0]['source']['integrationId']}</pre>  
-            </div>
-        `);
-        return data.messages[0]['source']['integrationId'];
     });
 }
 
