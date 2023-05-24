@@ -8,6 +8,5 @@ app_id
 integration_id
 key_id
 
-
 # Add this secret variable manually
 # secret_key
