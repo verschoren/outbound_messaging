@@ -2,7 +2,7 @@ export default {
   async fetch(request, env, ctx) {
     const { url } = request;
     if (request.method === "POST") {
-      if (url.includes("notification")) {
+      if (url.includes("notifications")) {
 
         const input = await request.json();
 
