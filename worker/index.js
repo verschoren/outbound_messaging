@@ -8,7 +8,7 @@ export default {
 
         if (input.phone && input.template){
           var result = await sendNotification(input.phone, input.template,env);
-          return new Response(JSON.stringify(result), init);
+          return new Response(JSON.stringify(result));
         } else {
           return new Response("No Phone or Template provided", {status:400});
         }
