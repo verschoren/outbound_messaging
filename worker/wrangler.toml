@@ -4,12 +4,13 @@ compatibility_date = "2023-01-01"
 account_id = "1e230692e8529617e34ee5ca900acae1"
 
 [vars]
-sunco_app_id = ''
-sunco_integration_id = ''
-sunco_key_id = ''
+sunco_app_id = "5f8ecbf276da07000cb2a456"
+sunco_integration_id = "646b411abc0c536ba1a98263"
+sunco_key_id = "app_646e1fc7549a114e4cc51b22"
+zendesk_admin_email = "thomas@verschoren.com"
+zendesk_domain = "d3v-verschoren"
 sunco_secret_key = '' 
-zendesk_admin_email = ''
 zendesk_token = ''
-zendesk_domain = ''
 
-# This secret_key one should be encrypted in the UI!
+# Replace with your values
+# This secret_key and zendesk_token should be encrypted in the UI!

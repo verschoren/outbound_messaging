@@ -42,7 +42,7 @@ export default {
 
 async function getIdentities(requester_id, env){
   const api_endpoint = `https:///${env.zendesk_domain}.zendesk.com/api/v2/users/${requester_id}.json`
-  const zendesk_key = btoa(env.zendesk_admin_email + ":" + env.zendesk_token);
+  const zendesk_key = btoa(env.zendesk_admin_email + "/token:" + env.zendesk_token);
 
   const init = {
     method: "GET",
