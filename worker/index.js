@@ -23,7 +23,7 @@ export default {
           } else {
             var conversation_id = await getConversationId(messaging_id,env);
             if (conversation_id){
-              var result = await sendMessage(conversation_id, input.messag,env);
+              var result = await sendMessage(conversation_id, input.message,env);
             } else {
               return new Response("No conversation_id found", {status:400});
             }
@@ -41,13 +41,13 @@ export default {
 };
 
 async function getIdentities(requester_id, env){
-  const api_endpoint = `https:///${env.zendesk_domain}.zendesk.com/api/v2/users/${requester_id}.json`
+  const api_endpoint = `https:///${env.zendesk_domain}.zendesk.com/api/v2/users/${requester_id}/identities.json`
   const zendesk_key = btoa(env.zendesk_admin_email + "/token:" + env.zendesk_token);
 
   const init = {
     method: "GET",
     headers: {
-      "content-type": "application/json;charset=UTF-8",
+      "content-type": "application/json",
       "authorization": "Basic " + zendesk_key
     },
   };
@@ -72,7 +72,7 @@ async function getConversationId(messaging_id, env){
   const init = {
     method: "GET",
     headers: {
-      "content-type": "application/json;charset=UTF-8",
+      "content-type": "application/json",
       "authorization": "Basic " + sunco_key
     },
   };
@@ -103,7 +103,7 @@ async function sendMessage(conversation_id, message, env){
     body: JSON.stringify(message_payload),
     method: "POST",
     headers: {
-      "content-type": "application/json;charset=UTF-8",
+      "content-type": "application/json",
       "authorization": "Basic " + sunco_key
     },
   };
@@ -145,7 +145,7 @@ async function sendNotification(phone, template, env){
     body: JSON.stringify(payload),
     method: "POST",
     headers: {
-      "content-type": "application/json;charset=UTF-8",
+      "content-type": "application/json",
       "authorization": "Basic " + sunco_key
     },
   };
