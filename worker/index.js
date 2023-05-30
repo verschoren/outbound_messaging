@@ -24,6 +24,7 @@ export default {
             var conversation_id = await getConversationId(messaging_id,env);
             if (conversation_id){
               var result = await sendMessage(conversation_id, input.message,env);
+              return new Response(JSON.stringify(result), init);
             } else {
               return new Response("No conversation_id found", {status:400});
             }
@@ -41,7 +42,7 @@ export default {
 };
 
 async function getIdentities(requester_id, env){
-  const api_endpoint = `https:///${env.zendesk_domain}.zendesk.com/api/v2/users/${requester_id}/identities.json`
+  const api_endpoint = `https://${env.zendesk_domain}.zendesk.com/api/v2/users/${requester_id}/identities.json`
   const zendesk_key = btoa(env.zendesk_admin_email + "/token:" + env.zendesk_token);
 
   const init = {
@@ -56,7 +57,7 @@ async function getIdentities(requester_id, env){
   const results = await response.json();
   console.log(results);
   for (let index = 0; index < results.identities.length; index++) {
-    const identity = requester.identities[index];
+    const identity = results.identities[index];
     if (identity.type == "messaging"){
       var messaging_id = identity.value;
       return messaging_id;
