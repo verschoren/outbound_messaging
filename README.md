@@ -24,8 +24,10 @@ Expects a payload of
 ```
 
 ### Settings
-https://internalnote.com/content/images/2023/05/image-41.png![image](https://github.com/verschoren/outbound_messaging/assets/894026/6346e99b-1bdc-4e7e-b668-95507bdfb6e5)
+![https://internalnote.com/content/images/2023/05/image-41.png![image](https://github.com/verschoren/outbound_messaging/assets/894026/6346e99b-1bdc-4e7e-b668-95507bdfb6e5)
 
 
 ## App
-https://internalnote.com/content/images/2023/05/image-45.png![image](https://github.com/verschoren/outbound_messaging/assets/894026/b721aa4d-41f5-4161-be98-d7acf52715f0)
+The app can be found in /app and allows agents to submit messages. Please check the releases in the left sidebar to find the latest version.
+
+![https://internalnote.com/content/images/2023/05/image-45.png![image](https://github.com/verschoren/outbound_messaging/assets/894026/b721aa4d-41f5-4161-be98-d7acf52715f0)
