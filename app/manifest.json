@@ -21,7 +21,6 @@
   },
   "version": "1.0.0",
   "frameworkVersion": "2.0",
-  "domainWhitelist": ["api.smooch.io"],
   "parameters": [
     {
       "name": "integration_id",
@@ -41,7 +40,6 @@
     {
       "name": "secret_key",
       "type": "text",
-      "secure": true,
       "required": true
     },
     {
