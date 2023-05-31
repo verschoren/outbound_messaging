@@ -1,8 +1,8 @@
 {
   "app": {
     "name": "Outbound Messaging",
-    "short_description": "Play the famous zen tunes in your help desk.",
-    "long_description": "Play the famous zen tunes in your help desk and \n listen to the beats it has to offer.",
+    "short_description": "Send messages and notifications via Sunshine Conversations",
+    "long_description": "Send messages and notifications via Sunshine Conversations",
     "installation_instructions": "Simply click install.",
     "parameters": {
       "integration_id": { 
