@@ -10,10 +10,6 @@ $('.toggle').click(function(){
 function setButtons(metadata,context){
     if (context.location == 'user_sidebar'){
         $('.textarea').addClass('hidden');
-        $('.buttons').addClass('relative');
-        $('.buttons').removeClass('absolute');
-        $('#send_message').addClass('hidden');
-        $('#send_template_2').addClass('rounded-l-md');
     }
     if (metadata.settings.template_1 != ''){
         $('#send_template_1').html(metadata.settings.template_1);

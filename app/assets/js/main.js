@@ -1,7 +1,9 @@
 var client = ZAFClient.init();
-var context,recipient,conversation_id,metadata,key,integration_id,phone;
 
-//Add Smooch App ID and API Token
+var context,metadata;
+var recipient,phone;
+var conversation_id,key,integration_id;
+
 client.invoke('resize', { width: '100%', height: '200px' });
 
 $(document).ready(async function() {
@@ -79,14 +81,14 @@ async function handleMessage(message){
     //get text in textfield
     var message = JSON.stringify({
         "content": {
-        "type": "text",
-        "text": message
+            "type": "text",
+            "text": message
         },
         "author": {
-        "type": "business"
+            "type": "business"
         },
         "source": {
-        "type": "zd:agentWorkspace"
+            "type": "zd:agentWorkspace"
         }
     });
     return await sendMessage(`https://api.smooch.io/v2/apps/${metadata.settings.app_id}/conversations/${conversation_id}/messages`,message);
