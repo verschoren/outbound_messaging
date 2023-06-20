@@ -1,5 +1,6 @@
-# Zendesk Messaging Worker
+<img width="3840" alt="Apple TV 4K Copy 79@2x" src="https://github.com/verschoren/outbound_messaging/assets/894026/aa58d7b5-c788-47ac-bf3e-9e1a2f134019">
 
+# Zendesk Messaging Worker
 This worker and application can be used to send messaging via Sunshne Conversations.
 The full overview can be found at https://internalnote.com/sunshine-conversation-automations
 
