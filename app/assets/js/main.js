@@ -4,7 +4,7 @@ var context,metadata;
 var recipient,phone;
 var conversation_id,key,integration_id;
 
-client.invoke('resize', { width: '100%', height: '200px' });
+client.invoke('resize', { width: '100%', height: '250px' });
 
 $(document).ready(async function() {
     $('#results').html('');
@@ -60,6 +60,9 @@ async function getUser(requester){
         type: 'GET',
         dataType: 'json'
     }).then(function(data) {
+        if (data.user.phone == null){
+            return '';
+        }
         return data.user.phone.replaceAll(' ', '');
     });
 }

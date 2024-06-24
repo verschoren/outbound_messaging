@@ -4,10 +4,13 @@
 This worker and application can be used to send messaging via Sunshne Conversations.
 The full overview can be found at https://internalnote.com/sunshine-conversation-automations
 
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/verschoren/outbound_messaging)
+
+
 ## Worker
 The worker has two endpoints:
 ### /notifications
-Expects a payload of
+Expects a payload of a WhatsApp phone number, and an approved template name.
 ```
 {
 	"phone":"1234567890",
@@ -16,7 +19,7 @@ Expects a payload of
 ```
 
 ### /messages
-Expects a payload of
+Expects a payload of a requester ID of a Zendesk user, and your message in plain text.
 ```
 {
 	"requester":"1234567890",
