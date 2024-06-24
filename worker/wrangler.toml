@@ -14,3 +14,4 @@ zendesk_token = ''
 
 # Replace with your values
 # This secret_key and zendesk_token should be encrypted in the UI!
+# Don't bother trying out these API endpoints. they are examples.
